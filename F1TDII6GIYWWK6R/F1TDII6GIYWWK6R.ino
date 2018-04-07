@@ -17,7 +17,6 @@
    Update: Nov 20 09: Updated handling of programming button to make it more intuitive, give better feedback.
    Update: Jan 20 10: Removed the "pinMode(knockSensor, OUTPUT);" line since it makes no sense and doesn't do anything.
  */
-#include <Servo.h>  
  
 // Pin definitions
 const int knockSensor = 0;         // Piezo sensor on pin 0.
@@ -38,9 +37,7 @@ const int knockComplete = 1200;     // Longest time to wait for a knock before w
 
 
 // Variables.
-int secretCode1[maximumKnocks] = {50, 25, 25, 50, 100, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};  // Initial setup: "Shave and a Hair Cut, two bits."
-int secretCode2[maximumKnocks] = {50, 25, 25, 50, 100, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-int secretCode3[maximumKnocks] = {50, 25, 25, 50, 100, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+int secretCode[maximumKnocks] = {50, 25, 25, 50, 100, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};  // Initial setup: "Shave and a Hair Cut, two bits."
 int knockReadings[maximumKnocks];   // When someone knocks this array fills with delays between knocks.
 int knockSensorValue = 0;           // Last reading of the knock sensor.
 int programButtonPressed = false;   // Flag so we remember the programming button setting at the end of the cycle.
@@ -77,6 +74,7 @@ void loop() {
 // Records the timing of knocks.
 void listenToSecretKnock(){
   Serial.println("knock starting");   
+
   int i = 0;
   // First lets reset the listening array.
   for (i=0;i<maximumKnocks;i++){
